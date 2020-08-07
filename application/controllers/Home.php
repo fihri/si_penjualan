@@ -5,7 +5,8 @@ class Home extends CI_Controller {
 	public function __construct()
 	{
         parent::__construct();
-        
+        $this->load->model('m_home');
+        $this->load->helper('url');
 	}
 
 	public function index()
@@ -56,6 +57,22 @@ class Home extends CI_Controller {
         $this->load->view('template/sidebar');
         $this->load->view('panels');
         $this->load->view('template/script');
+    }
+
+    public function insert()
+    {
+        // $data = array (
+        //     'name'      => $this->input->post('name'),
+        //     'email'     => $this->input->post('email'),
+        //     'message'   => $this->input->post('message')
+        // );
+        $data = [
+            'name'  => $this->input->post('name'),
+            'email' => $this->input->post('email'),
+            'message' => $this->input->post('message')
+        ];
+        $this->m_home->input_data($data, 'contact');
+        redirect('Home/panel');
     }
 }
 
